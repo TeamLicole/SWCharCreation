@@ -1,14 +1,15 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <app-header/>
     <router-view/>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+ export default {
+   name: 'App',
+   components: { AppHeader }
+ }
 </script>
 
 <style>
