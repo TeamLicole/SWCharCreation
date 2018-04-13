@@ -17,4 +17,6 @@ const knex = require('knex')(config);
 let bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+
+
 app.listen(3003, () => console.log('Server listening on port 3003!'));

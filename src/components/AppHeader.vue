@@ -3,18 +3,20 @@
     	<label for="show-menu" class="show-menu">Show Menu</label>
     	<input type="checkbox" id="show-menu" role="button">
       <ul id="menu">
-  	    <li><router-link to="./">Home</router-link></li>
-  	    <li><router-link to="./hufflepuff">Hufflepuff</router-link></li>
-        <li><router-link to="./slytherin">Slytherin</router-link></li>
-  	    <li><router-link to="./ravenclaw">Ravenclaw</router-link></li>
-        <li><router-link to="./gryffindor">Gryffindor</router-link></li>
+  	    <li><router-link to="./">HomePage</router-link></li>
+  	    <li><router-link to="./NewChar">Create Character</router-link></li>
+        <li><router-link to="./ViewChars">View Characters</router-link></li>
 	    </ul>
     </nav>
 </template>
 
 <script>
    export default {
-       name: 'AppHeader'
+       name: 'AppHeader',
+       data() {
+          return {
+          }
+        },
    }
 </script>
 

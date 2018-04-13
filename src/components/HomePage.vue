@@ -26,3 +26,15 @@
      },
    }
 </script>
+
+<style>
+  h1 {
+    color: white;
+  }
+  h2 {
+    color: white;
+  }
+  p {
+    color: white;
+  }
+</style>

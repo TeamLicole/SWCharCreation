@@ -15,12 +15,12 @@ export default new Router({
       component: HomePage
     },
     {
-      path: '/',
+      path: '/NewChar',
       name: 'NewChar',
       component: NewChar
     },
     {
-      path: '/',
+      path: '/ViewChars',
       name: 'ViewChars',
       component: ViewChars
     }
