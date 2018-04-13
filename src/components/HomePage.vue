@@ -1,0 +1,28 @@
+<template>
+  <div class = "home">
+    <h1>Welcome to the Star Wars Character Creation Page!</h1>
+    <h2>About</h2>
+    <p>This website can be used to create and view custom Star Wars characters!</p>
+    <p>To get started you can either create a new character or view characters already created</p>
+    <button v-on:click="newChar" type="button">Create A New Character<></button>
+    <button v-on:click="viewChars" type="button">View Characters Already Created</button>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'HomePage',
+    data() {
+       return {
+       }
+     },
+     methods: {
+       newChar: function() {
+        this.$router.push("NewChar");
+       },
+       viewChars: function() {
+        this.$router.push("ViewChars");
+       },
+     },
+   }
+</script>
