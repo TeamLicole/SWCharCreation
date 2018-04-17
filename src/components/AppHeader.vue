@@ -1,13 +1,23 @@
 <template>
     <nav>
-    	<label for="show-menu" class="show-menu">Show Menu</label>
-    	<input type="checkbox" id="show-menu" role="button">
       <ul id="menu">
-  	    <li><router-link to="./">HomePage</router-link></li>
-  	    <li><router-link to="./NewChar">Create Character</router-link></li>
-        <li><router-link to="./ViewChars">View Characters</router-link></li>
-	    </ul>
+        <li><router-link to="/">Home</router-link></li>
+        <li v-if="loggedIn"><router-link to="./NewChar">Create Character</router-link></li>
+        <li v-if="loggedIn"><router-link to="./ViewChars">View Characters</router-link></li>
+        <li class="right" v-if="loggedIn"><a @click="logout" href="#">Logout</a></li>
+        <li class="right" v-if="loggedIn">{{user.username}}</li>
+
+        <form v-else class="right" v-on:submit.prevent="login">
+          <input v-model="username" placeholder="Username">
+          <input v-model="password" placeholder="Password">
+          <button class="primary" type="submit">Login</button>
+        </form>
+      </ul>
+      <div class="flexWrapper errorPlace">
+        <p v-if="loginError" class="flexRight error">{{loginError}}</p>
+      </div>
     </nav>
+
 </template>
 
 <script>
@@ -15,12 +25,42 @@
        name: 'AppHeader',
        data() {
           return {
+           username: '',
+           password: '',
           }
         },
+        computed: {
+         user: function() {
+           return this.$store.getters.user;
+         },
+         loggedIn: function() {
+           return this.$store.getters.loggedIn;
+         },
+         loginError: function() {
+           return this.$store.getters.loginError;
+         },
+       },
+       methods: {
+         login: function() {
+           this.$store.dispatch('login',{
+             email: this.email,
+             password: this.password,
+           }).then(user => {
+          	 this.username = '';
+          	 this.password = '';
+           });
+         },
+         logout: function() {
+           this.$store.dispatch('logout');
+         }
+       }
    }
 </script>
 
 <style scoped>
+   .right {
+     float: right;
+   }
    /*Strip the ul of padding and list styling*/
    .clear {
        float: clear;

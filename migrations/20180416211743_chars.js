@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
       table.string('gender');
       table.string('species');
       table.string('alignment');
+      table.integer('user_id').unsigned().notNullable().references('id').inTable('users');
     }),
   ]);
 };
