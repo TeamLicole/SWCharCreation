@@ -5,7 +5,7 @@
         <li v-if="loggedIn"><router-link to="./NewChar">Create Character</router-link></li>
         <li v-if="loggedIn"><router-link to="./ViewChars">View Characters</router-link></li>
         <li class="right" v-if="loggedIn"><a @click="logout" href="#">Logout</a></li>
-        <li class="right" v-if="loggedIn">{{user.username}}</li>
+        <li class="right" v-if="loggedIn"><router-link to="./HomePage">{{user.username}}</router-link></li>
 
         <form v-else class="right" v-on:submit.prevent="login">
           <input v-model="username" placeholder="Username">
@@ -60,7 +60,10 @@
 <style scoped>
    .right {
      float: right;
-     padding: 10px;
+     display: block;
+  	 color: white;
+  	 text-align: center;
+  	 text-decoration: none;
    }
    /*Strip the ul of padding and list styling*/
    .clear {
@@ -91,10 +94,7 @@
      color: black;
    }
    /*Hover state for top level links*/
-   nav li a:hover {
-  	 background-color: #111;
-     color: white;
-   }
+
    /*Style 'show menu' label button and hide it by default*/
    .show-menu {
        text-decoration: none;
