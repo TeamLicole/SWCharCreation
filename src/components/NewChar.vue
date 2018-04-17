@@ -43,13 +43,14 @@
          speciesPicked: '',
          alignmentPicked: '',
          image: '/static/images/unknown.png',
-         created: '',
+         created: 'nope',
        }
      },
      methods: {
        createChar: function() {
          this.image = "/static/images/" + this.genderPicked + this.speciesPicked + this.alignmentPicked + ".png";
-         if (created === "nope") {
+         if (this.created === "nope") {
+           this.created = "yup";
            this.$store.dispatch('addChar',{
   	         name: this.charName,
              gender: this.genderPicked,

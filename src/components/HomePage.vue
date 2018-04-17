@@ -1,11 +1,18 @@
 <template>
   <div class = "home">
-    <h1>Welcome to the Star Wars Character Creation Page!</h1>
-    <h2>About</h2>
-    <p>This website can be used to create and view custom Star Wars characters!</p>
-    <p>To get started you can either create a new character or view your characters already created</p>
-    <button v-on:click="newChar" type="button">Create A New Character</button>
-    <button v-on:click="viewChars" type="button">View Characters Already Created</button>
+    <div v-if="loggedIn">
+      <h1>Welcome to the Star Wars Character Creation Page!</h1>
+      <div class = "subhome" style="background-color: rgba(235, 233, 233, 0.5); padding-top: 10px; padding-bottom: 20px;">
+        <h2>About</h2>
+        <p>This website can be used to create and view custom Star Wars characters!</p>
+        <p>To get started you can either create a new character or view your characters already created</p>
+        <button v-on:click="newChar" type="button">Create A New Character</button>
+        <button v-on:click="viewChars" type="button">View Characters Already Created</button>
+      </div>
+    </div>
+    <div v-else>
+      <welcome-page/>
+    </div>
   </div>
 </template>
 

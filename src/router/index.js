@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
+import WelcomePage from '@/components/WelcomePage'
 import NewChar from '@/components/NewChar'
 import ViewChars from '@/components/ViewChars'
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'HomePage',
       component: HomePage
+    },
+    {
+      path: '/',
+      name: 'WelcomePage',
+      component: WelcomePage
     },
     {
       path: '/NewChar',

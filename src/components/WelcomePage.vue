@@ -1,16 +1,18 @@
 <template>
   <div class="welcome">
     <h1>Welcome to the Star Wars Character Creation Page!</h1>
-    <h2>About</h2>
-    <p>This website can be used to create and view custom Star Wars characters!</p>
-    <p>To get started you can either create an account or login</p>
+    <div class="subwelcome" style="background-color: rgba(235, 233, 233, 0.5); padding-top: 10px; padding-bottom: 20px;">
+      <h2>About</h2>
+      <p>This website can be used to create and view custom Star Wars characters!</p>
+      <p>To get started you can either create an account or login</p>
 
-      <input class="narrow" v-model="username" placeholder="Username">
-      <input class="narrow" type="password" v-model="password" placeholder="Password">
-      <button v-on:click="register" type="button">Register</button>
-      <button v-on:click="login" type="button">Login</button>
+        <input class="narrow" v-model="username" placeholder="Username">
+        <input class="narrow" type="password" v-model="password" placeholder="Password">
+        <button v-on:click="register" type="button">Register</button>
+        <button v-on:click="login" type="button">Login</button>
 
-    <p class="error">{{registerError}}</p>
+      <p class="error">{{registerError}}</p>
+    </div>
   </div>
 </template>
 

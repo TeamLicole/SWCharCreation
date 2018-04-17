@@ -43,7 +43,7 @@
        methods: {
          login: function() {
            this.$store.dispatch('login',{
-             email: this.email,
+             username: this.username,
              password: this.password,
            }).then(user => {
           	 this.username = '';
@@ -60,6 +60,7 @@
 <style scoped>
    .right {
      float: right;
+     padding: 10px;
    }
    /*Strip the ul of padding and list styling*/
    .clear {

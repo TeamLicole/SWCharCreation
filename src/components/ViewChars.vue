@@ -6,7 +6,7 @@
       <br>
       <h2 class="name">{{item.name}}</h2>
    </div>
-    <button v-on:click="newChar" type="button">Create A New Character<></button>
+    <button v-on:click="newChar" type="button">Create A New Character</button>
     <button v-on:click="viewChars" type="button">View Characters Already Created</button>
   </div>
 </template>
