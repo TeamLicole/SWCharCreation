@@ -6,6 +6,8 @@
       <div style="padding:10px" v-for="item in charFeed" class="item">
         <img :src="'/static/images/' + item.gender + item.species + item.alignment + '.png'" />
         <h2 class="char">{{item.name}}</h2>
+        <button v-on:click="editChar(item)" type="button">Edit</button>
+        <button v-on:click="deleteChar(item.name)" type="button">Delete</button>
         <hr />
       </div>
       <button v-on:click="newChar" type="button">Create A New Character</button>
@@ -41,7 +43,20 @@
        },
        setImage: function(gender, species, alignment) {
         this.image = "/static/images/" + gender + species + alignment + ".png";
-       }
+       },
+       editChar: function(item) {
+         this.$store.dispatch('updateCurrChar',{
+           name: item.name,
+           gender: item.gender,
+           species: item.species,
+           alignment: item.alignment,
+           id: item.id
+         });
+         this.$router.push("EditChar");
+       },
+       deleteChar: function(name) {
+         this.$store.dispatch('deleteChar',{name}).then(tweet => {});
+       },
      },
    }
 </script>

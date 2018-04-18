@@ -11,14 +11,18 @@ export default new Vuex.Store({
     loggedIn: false,
     loginError: '',
     registerError: '',
+    charError: '',
     charFeed: [],
+    currChar: '',
   },
   getters: {
     user: state => state.user,
     loggedIn: state => state.loggedIn,
     loginError: state => state.loginError,
     registerError: state => state.registerError,
+    charError: state => state.charError,
     charFeed: state => state.charFeed,
+    currChar: state => state.currChar,
   },
   mutations: {
     setUser (state, user) {
@@ -33,12 +37,21 @@ export default new Vuex.Store({
     setRegisterError (state, message) {
       state.registerError = message;
     },
+    setCharError (state, message) {
+      state.charError = message;
+    },
     setCharFeed (state, charFeed) {
       state.charFeed = charFeed;
+    },
+    setCurrChar (state, currChar) {
+      state.currChar = currChar;
     },
   },
   actions: {
     // Registration, Login //
+    updateCurrChar(context, char) {
+      context.commit('setCurrChar', char);
+    },
     register(context,user) {
       axios.post("/api/users",user).then(response => {
       	context.commit('setUser', response.data.user);
@@ -87,17 +100,30 @@ export default new Vuex.Store({
       });
     },
     addChar(context,char) {
+      context.commit('setCurrChar', char);
+      console.log("currChar = ", this.currChar);
       console.log("going to call server");
       axios.post("/api/users/" + context.state.user.id + "/chars",char).then(response => {
-        console.log("here");
+         console.log("here");
+         context.commit('setCharError',"Your character has been created! You can edit it from the View Characters page.");
+         // context.dispatch('getCharFeed');
+         // console.log("\n\n", this.charFeed);
 	       return context.dispatch('getCharFeed');
-         // return;
       }).catch(err => {
-	       console.log("addChar failed:",err);
+	       // console.log("addChar failed:",err);
+       	 context.commit('setCharError',"That character name  is already taken.");
+         // console.log("\ncharError is now: ", this.charError, "\n");
+       	 return;
       });
     },
-    editChar(context,char) {
-
+    deleteChar(context,name) {
+      console.log("name = ", name.name);
+      axios.delete("/api/users/" + context.state.user.id + "/chars/" + name.name).then(response => {
+        return context.dispatch('getCharFeed');
+      }).catch(err => {
+	       console.log("deleteChar failed:",err);
+       	 return;
+      });
     }
   }
 });

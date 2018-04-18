@@ -21,6 +21,7 @@
             <input type="radio" name="alignment" id="Light" value="Light" v-model="alignmentPicked"> Light Side</p><br>
             <button class="alternate" type="submit">Create</button>
             <p v-model="createError">{{createError}}</p>
+            <p class="error">{{charError}}</p>
           </form>
         </div>
         <div class="column">
@@ -44,6 +45,9 @@
     computed: {
       loggedIn: function() {
         return this.$store.getters.loggedIn;
+      },
+      charError: function() {
+        return this.$store.getters.charError;
       },
     },
     data() {
@@ -69,6 +73,7 @@
                }).then(tweet => {
         	       this.text = "";
                });
+
            }
            else {
               this.createError = "missing character attributes";

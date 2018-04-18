@@ -71,12 +71,10 @@ app.post('/api/users', (req, res) => {
 });
 
 app.get('/api/users/:id/chars', (req, res) => {
-  console.log("time to get chars");
   let id = parseInt(req.params.id);
   knex('users').join('chars','users.id','chars.user_id')
     .where('users.id',id)
     .select('name', 'gender', 'species', 'alignment','username').then(chars => {
-      console.log("setting stuff");
       res.status(200).json({chars:chars});
     }).catch(error => {
       console.log("error: " + error);
@@ -86,8 +84,50 @@ app.get('/api/users/:id/chars', (req, res) => {
 
 app.post('/api/users/:id/chars', (req, res) => {
   let id = parseInt(req.params.id);
+
+  knex('chars').where('name',req.body.name).first().then(char => {
+    if (char !== undefined) {
+      console.log("char is not undefined");
+      res.status(403).send("That character name already exists");
+      throw new Error('abort');
+    }
+      knex('users').where('id',id).first().then(user => {
+        return knex('chars').insert({user_id: id, name:req.body.name, gender:req.body.gender, species:req.body.species,
+          alignment:req.body.alignment});
+      }).then(ids => {
+        return knex('chars').where('id',ids[0]).first();
+      }).then(char => {
+        res.status(200).json({char:char});
+        return;
+      })
+  }).catch(error => {
+    console.log("in the catch");
+    if (error.message !== 'abort') {
+      console.log("the error is: ", error);
+      res.status(500).json({ error });
+    }
+  });
+});
+
+app.delete('/api/users/:id/chars/:name', (req, res) => {
+  let id = parseInt(req.params.id);
+  console.log("id = ", id);
+  console.log("name = ", req.params.name);
   knex('users').where('id',id).first().then(user => {
-    return knex('chars').insert({user_id: id, name:req.body.name, gender:req.body.gender, species:req.body.species,
+    return knex('chars').where({'user_id':id,name:req.params.name}).first().del();
+  }).then(chars => {
+    res.sendStatus(200);
+  }).catch(error => {
+    console.log(error);
+    res.status(500).json({ error });
+  });
+});
+
+app.put('/api/users/:id/chars', (req, res) => {
+  let id = parseInt(req.params.id);
+  console.log("char in put: ", req.body.name, req.body.gender, req.body.species, req.body.alignment);
+  knex('chars').where('user_id', id).andWhere('name', req.body.name).first().then(user => {
+    return knex('chars').update({user_id: id, name:req.body.name, gender:req.body.gender, species:req.body.species,
       alignment:req.body.alignment});
   }).then(ids => {
     return knex('chars').where('id',ids[0]).first();
@@ -99,24 +139,5 @@ app.post('/api/users/:id/chars', (req, res) => {
     res.status(500).json({ error });
   });
 });
-
-// app.post('/api/users/:id/chars', (req, res) => {
-//   let id = parseInt(req.params.id);
-//   knex('users').where('id',id).first().then(user => {
-//     return knex('chars').insert({user_id: id, tweet:req.body.tweet, created: new Date()});
-//   }).then(ids => {
-//     return knex('chars').where('id',ids[0]).first();
-//   }).then(char => {
-//     res.status(200).json({char:char});
-//     return;
-//   }).catch(error => {
-//     console.log(error);
-//     res.status(500).json({ error });
-//   });
-// });
-
-// app.put('/api/users/:id/chars', (req, res) => {
-//
-// });
 
 app.listen(3003, () => console.log('Server listening on port 3003!'));
