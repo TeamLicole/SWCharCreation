@@ -1,42 +1,51 @@
 <template>
   <div class = "home">
-    <h1>Create A Character</h1>
+    <div v-if="loggedIn">
+      <h1>Create A Character</h1>
+      <div class="row" style="background-color: rgba(235, 233, 233, 0.5)">
+        <div class="column">
+          <form v-on:submit.prevent="createChar">
+            <p>Character name
+            <input class="narrow" v-model="charName" placeholder="Character Name"></p><br>
 
-    <div class="row" style="background-color: rgba(235, 233, 233, 0.5)">
-      <div class="column">
-        <form v-on:submit.prevent="createChar">
-          <p>Character name
-          <input class="narrow" v-model="charName" placeholder="Character Name"></p><br>
+            <p>Select Gender:
+            <input type="radio" name="gender" id="Female" value="Female"  v-model="genderPicked"> Female
+            <input type="radio" name="gender" id="Male" value="Male" v-model="genderPicked"> Male</p><br>
 
-          <p>Select Gender:
-          <input type="radio" name="gender" id="Female" value="Female"  v-model="genderPicked"> Female
-          <input type="radio" name="gender" id="Male" value="Male" v-model="genderPicked"> Male</p><br>
+            <p>Select Species:
+            <input type="radio" name="species" id="NotHuman" value="NotHuman" v-model="speciesPicked" checked> Twi'lek
+            <input type="radio" name="species" id="Human" value="Human"  v-model="speciesPicked"> Human</p><br>
 
-          <p>Select Species:
-          <input type="radio" name="species" id="NotHuman" value="NotHuman" v-model="speciesPicked" checked> Twi'lek
-          <input type="radio" name="species" id="Human" value="Human"  v-model="speciesPicked"> Human</p><br>
-
-          <p>Select Alignment:
-          <input type="radio" name="alignment" id="Dark" value="Dark" v-model="alignmentPicked" checked> Dark Side
-          <input type="radio" name="alignment" id="Light" value="Light" v-model="alignmentPicked"> Light Side</p><br>
-          <button class="alternate" type="submit">Create</button>
-          <p v-model="createError">{{createError}}</p>
-        </form>
-      </div>
-      <div class="column">
-        <img :src="image">
-        <br>
-        <h2 v-bind:class="{charName}">{{charName}}</h2>
+            <p>Select Alignment:
+            <input type="radio" name="alignment" id="Dark" value="Dark" v-model="alignmentPicked" checked> Dark Side
+            <input type="radio" name="alignment" id="Light" value="Light" v-model="alignmentPicked"> Light Side</p><br>
+            <button class="alternate" type="submit">Create</button>
+            <p v-model="createError">{{createError}}</p>
+          </form>
+        </div>
+        <div class="column">
+          <img :src="image">
+          <br>
+          <h2 v-bind:class="{charName}">{{charName}}</h2>
+        </div>
       </div>
     </div>
-
-
+    <div v-else>
+      <welcome-page/>
+    </div>
   </div>
 </template>
 
 <script>
+  import WelcomePage from './WelcomePage';
   export default {
     name: 'NewChar',
+    components: {WelcomePage},
+    computed: {
+      loggedIn: function() {
+        return this.$store.getters.loggedIn;
+      },
+    },
     data() {
        return {
          createError: '',
@@ -69,7 +78,7 @@
    }
 </script>
 
-<style>
+<style scoped>
 * {
 box-sizing: border-box;
 }
