@@ -76,8 +76,10 @@ app.get('/api/users/:id/chars', (req, res) => {
   knex('users').join('chars','users.id','chars.user_id')
     .where('users.id',id)
     .select('name', 'gender', 'species', 'alignment','username').then(chars => {
+      console.log("setting stuff");
       res.status(200).json({chars:chars});
     }).catch(error => {
+      console.log("error: " + error);
       res.status(500).json({ error });
     });
 });

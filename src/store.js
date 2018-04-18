@@ -33,7 +33,7 @@ export default new Vuex.Store({
     setRegisterError (state, message) {
       state.registerError = message;
     },
-    setFeed (state, charFeed) {
+    setCharFeed (state, charFeed) {
       state.charFeed = charFeed;
     },
   },
