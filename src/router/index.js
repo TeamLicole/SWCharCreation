@@ -17,6 +17,11 @@ export default new Router({
       component: HomePage
     },
     {
+      path: '/HomePage',
+      name: 'HomePage',
+      component: HomePage
+    },
+    {
       path: '/',
       name: 'WelcomePage',
       component: WelcomePage
