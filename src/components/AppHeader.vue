@@ -7,11 +7,6 @@
         <li class="right" v-if="loggedIn"><a @click="logout" href="#">Logout</a></li>
         <li class="right" v-if="loggedIn"><router-link to="./HomePage">{{user.username}}</router-link></li>
 
-        <form v-else class="right" v-on:submit.prevent="login">
-          <input v-model="username" placeholder="Username">
-          <input v-model="password" placeholder="Password">
-          <button class="primary" type="submit">Login</button>
-        </form>
       </ul>
       <div class="flexWrapper errorPlace">
         <p v-if="loginError" class="flexRight error">{{loginError}}</p>
