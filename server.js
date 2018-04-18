@@ -71,11 +71,11 @@ app.post('/api/users', (req, res) => {
 });
 
 app.get('/api/users/:id/chars', (req, res) => {
+  console.log("time to get chars");
   let id = parseInt(req.params.id);
-  knex('chars').join('chars','users.id','chars.user_id')
+  knex('users').join('chars','users.id','chars.user_id')
     .where('users.id',id)
-    .orderBy('created','desc')
-    .select('name', 'gender', 'species', 'alignment','username','created').then(chars => {
+    .select('name', 'gender', 'species', 'alignment','username').then(chars => {
       res.status(200).json({chars:chars});
     }).catch(error => {
       res.status(500).json({ error });
@@ -86,7 +86,7 @@ app.post('/api/users/:id/chars', (req, res) => {
   let id = parseInt(req.params.id);
   knex('users').where('id',id).first().then(user => {
     return knex('chars').insert({user_id: id, name:req.body.name, gender:req.body.gender, species:req.body.species,
-      alignment:req.body.alignment, created: new Date()});
+      alignment:req.body.alignment});
   }).then(ids => {
     return knex('chars').where('id',ids[0]).first();
   }).then(char => {
@@ -97,5 +97,24 @@ app.post('/api/users/:id/chars', (req, res) => {
     res.status(500).json({ error });
   });
 });
+
+// app.post('/api/users/:id/chars', (req, res) => {
+//   let id = parseInt(req.params.id);
+//   knex('users').where('id',id).first().then(user => {
+//     return knex('chars').insert({user_id: id, tweet:req.body.tweet, created: new Date()});
+//   }).then(ids => {
+//     return knex('chars').where('id',ids[0]).first();
+//   }).then(char => {
+//     res.status(200).json({char:char});
+//     return;
+//   }).catch(error => {
+//     console.log(error);
+//     res.status(500).json({ error });
+//   });
+// });
+
+// app.put('/api/users/:id/chars', (req, res) => {
+//
+// });
 
 app.listen(3003, () => console.log('Server listening on port 3003!'));

@@ -4,6 +4,7 @@ import HomePage from '@/components/HomePage'
 import WelcomePage from '@/components/WelcomePage'
 import NewChar from '@/components/NewChar'
 import ViewChars from '@/components/ViewChars'
+import EditChar from '@/components/EditChar'
 
 
 Vue.use(Router)
@@ -29,6 +30,11 @@ export default new Router({
       path: '/ViewChars',
       name: 'ViewChars',
       component: ViewChars
+    },
+    {
+      path: '/EditChar',
+      name: 'EditChar',
+      component: EditChar
     }
   ]
 })

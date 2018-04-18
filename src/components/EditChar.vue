@@ -4,7 +4,7 @@
 
     <div class="row" style="background-color: rgba(235, 233, 233, 0.5)">
       <div class="column">
-        <form v-on:submit.prevent="createChar">
+        <form v-on:submit.prevent="updateChar">
           <p>Character name
           <input class="narrow" v-model="charName" placeholder="Character Name"></p><br>
 
@@ -20,7 +20,7 @@
           <input type="radio" name="alignment" id="Dark" value="Dark" v-model="alignmentPicked" checked> Dark Side
           <input type="radio" name="alignment" id="Light" value="Light" v-model="alignmentPicked"> Light Side</p><br>
           <button class="alternate" type="submit">Create</button>
-          <p v-model="createError">{{createError}}</p>
+          <p v-model = "editError">{{editError}}</p>
         </form>
       </div>
       <div class="column">
@@ -36,10 +36,10 @@
 
 <script>
   export default {
-    name: 'NewChar',
+    name: 'EditChar',
     data() {
        return {
-         createError: '',
+        editError: '',
          charName: '??',
          genderPicked: '',
          speciesPicked: '',
@@ -48,22 +48,23 @@
        }
      },
      methods: {
-       createChar: function() {
-           if (this.charName !== '' && this.genderPicked !== '' && this.speciesPicked !== '' && this.alignmentPicked !== '') {
-              this.image = "/static/images/" + this.genderPicked + this.speciesPicked + this.alignmentPicked + ".png";
-               this.createError = '';
-               this.$store.dispatch('addChar',{
-      	         name: this.charName,
-                 gender: this.genderPicked,
-                 species: this.speciesPicked,
-      	         alignment: this.alignmentPicked,
-               }).then(tweet => {
-        	       this.text = "";
-               });
-           }
-           else {
-              this.createError = "missing character attributes";
-           }
+       editChar: function() {
+       if (this.charName !== '' && this.genderPicked !== '' && this.speciesPicked !== '' && this.alignmentPicked !== '') {
+        this.editError = '';
+           this.image = "/static/images/" + this.genderPicked + this.speciesPicked + this.alignmentPicked + ".png";
+             this.created = "yup";
+             this.$store.dispatch('addChar',{
+    	         name: this.charName,
+               gender: this.genderPicked,
+               species: this.speciesPicked,
+    	         alignment: this.alignmentPicked,
+             }).then(tweet => {
+      	       this.text = "";
+             });
+          }
+          else {
+            this.editError = "missing character attributes";
+          }
          },
        },
    }

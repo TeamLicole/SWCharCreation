@@ -79,7 +79,7 @@ export default new Vuex.Store({
       context.commit('setUser', {});
       context.commit('setLogin',false);
     },
-    getFeed(context) {
+    getCharFeed(context) {
       axios.get("/api/users/" + context.state.user.id + "/chars").then(response => {
 	       context.commit('setCharFeed',response.data.chars);
       }).catch(err => {
@@ -87,11 +87,17 @@ export default new Vuex.Store({
       });
     },
     addChar(context,char) {
-      axios.post("/api/users/" + context.state.user.id + "/char",char).then(response => {
+      console.log("going to call server");
+      axios.post("/api/users/" + context.state.user.id + "/chars",char).then(response => {
+        console.log("here");
 	       return context.dispatch('getCharFeed');
+         // return;
       }).catch(err => {
 	       console.log("addChar failed:",err);
       });
+    },
+    editChar(context,char) {
+
     }
   }
 });
