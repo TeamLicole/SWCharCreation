@@ -11,7 +11,7 @@
         <button v-on:click="register" type="button">Register</button>
         <button v-on:click="login" type="button">Login</button>
 
-      <p class="error">{{registerError}}</p>
+      <h1>{{registerError}}</h1>
     </div>
   </div>
 </template>
@@ -52,9 +52,14 @@
     color: white;
   }
   h2 {
-    color: white;
+    color: black;
   }
   p {
-    color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  p2 {
+    color: red;
   }
 </style>

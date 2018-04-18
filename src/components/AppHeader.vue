@@ -9,7 +9,7 @@
 
       </ul>
       <div class="flexWrapper errorPlace">
-        <p v-if="loginError" class="flexRight error">{{loginError}}</p>
+        <p style="color:red" v-if="loginError" class="flexRight error">{{loginError}}</p>
       </div>
     </nav>
 

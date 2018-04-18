@@ -66,9 +66,11 @@
     color: white;
   }
   h2 {
-    color: white;
+    color: black;
   }
   p {
-    color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
   }
 </style>
